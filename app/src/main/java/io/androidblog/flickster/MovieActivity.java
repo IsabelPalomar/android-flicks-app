@@ -2,15 +2,25 @@ package io.androidblog.flickster;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
+import io.androidblog.flickster.adapters.MovieArrayAdapter;
+import io.androidblog.flickster.models.Movie;
 
 public class MovieActivity extends AppCompatActivity {
+
+    ArrayList<Movie> movies;
+    MovieArrayAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +34,15 @@ public class MovieActivity extends AppCompatActivity {
         client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+                JSONArray movieJsonResults = null;
+
+                try {
+                    movieJsonResults = response.getJSONArray("results");
+                    movies = Movie.fromJSONArray(movieJsonResults);
+                    Log.d("DEBUG", movies.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
