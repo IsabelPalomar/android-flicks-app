@@ -3,6 +3,7 @@ package io.androidblog.flickster;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -21,11 +22,18 @@ public class MovieActivity extends AppCompatActivity {
 
     ArrayList<Movie> movies;
     MovieArrayAdapter movieAdapter;
+    ListView lvItems;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
+
+        lvItems = (ListView) findViewById(R.id.lvMovies);
+        movies = new ArrayList<>();
+        movieAdapter = new MovieArrayAdapter(this, movies);
+        lvItems.setAdapter(movieAdapter);
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
@@ -38,7 +46,8 @@ public class MovieActivity extends AppCompatActivity {
 
                 try {
                     movieJsonResults = response.getJSONArray("results");
-                    movies = Movie.fromJSONArray(movieJsonResults);
+                    movies.addAll(Movie.fromJSONArray(movieJsonResults));
+                    movieAdapter.notifyDataSetChanged();
                     Log.d("DEBUG", movies.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
