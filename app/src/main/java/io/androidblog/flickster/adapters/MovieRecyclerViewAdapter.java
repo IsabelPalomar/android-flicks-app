@@ -16,10 +16,11 @@ import java.util.List;
 import io.androidblog.flickster.R;
 import io.androidblog.flickster.models.Movie;
 
-public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder>  {
+public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private List<Movie> mMovies;
+    private final int NORMAL = 0, POPULAR = 1;
 
     public MovieRecyclerViewAdapter(Context context, List<Movie> movies){
         mContext = context;
@@ -31,23 +32,59 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public int getItemViewType(int position) {
+
+        if (mMovies.get(position).getVoteAverage() < 5) {
+            return NORMAL;
+        }else{
+            return POPULAR;
+        }
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
+        RecyclerView.ViewHolder viewHolder = null;
 
-        View movieView = inflater.inflate(R.layout.item_movie, parent, false);
-        ViewHolder viewHolder = new ViewHolder(movieView);
+        switch (viewType) {
+            case NORMAL:
+                View movieView = inflater.inflate(R.layout.item_movie, parent, false);
+                viewHolder = new ViewHolder(movieView);
+                break;
+            case POPULAR:
+                View popularMovieView = inflater.inflate(R.layout.item_popular_movie, parent, false);
+                viewHolder = new ViewHolderPopular(popularMovieView);
+                break;
+        }
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(MovieRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        switch (holder.getItemViewType()) {
+            case NORMAL:
+                ViewHolder vhNormal = (ViewHolder) holder;
+                configureViewNormalHolder(vhNormal, position);
+                break;
+            case POPULAR:
+                ViewHolderPopular vhPopular = (ViewHolderPopular) holder;
+                configureViewPopularHolder(vhPopular, position);
+                break;
+        }
+
+    }
+
+    private void configureViewNormalHolder(ViewHolder vhNormal, int position) {
+
         Movie movie = mMovies.get(position);
 
         // Set item views based on your views and data model
-        ImageView ivImage = holder.ivImage;
-        TextView tvTitle = holder.tvTitle;
-        TextView tvOverview = holder.tvOverview;
+        ImageView ivImage = vhNormal.ivImage;
+        TextView tvTitle = vhNormal.tvTitle;
+        TextView tvOverview = vhNormal.tvOverview;
 
         //populate data
         tvTitle.setText(movie.getOriginalTitle());
@@ -55,6 +92,19 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         Picasso.with(getContext())
                 .load(getImagePath(movie))
+                .placeholder(getPlaceHolderImg())
+                .into(ivImage);
+    }
+
+    private void configureViewPopularHolder(ViewHolderPopular vhPopular, int position) {
+
+        Movie movie = mMovies.get(position);
+
+        // Set item views based on your views and data model
+        ImageView ivImage = vhPopular.ivImage;
+
+        Picasso.with(getContext())
+                .load(movie.getBackdropPath())
                 .placeholder(getPlaceHolderImg())
                 .into(ivImage);
 
@@ -109,6 +159,16 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
 
+        }
+    }
+
+    public static class ViewHolderPopular extends RecyclerView.ViewHolder {
+
+        public ImageView ivImage;
+
+        public ViewHolderPopular(View itemView) {
+            super(itemView);
+            ivImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
         }
     }
 
