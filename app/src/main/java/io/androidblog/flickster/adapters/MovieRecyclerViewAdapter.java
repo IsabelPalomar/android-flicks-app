@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.androidblog.flickster.R;
 import io.androidblog.flickster.models.Movie;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -92,6 +93,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
         Picasso.with(getContext())
                 .load(getImagePath(movie))
+                .transform(new RoundedCornersTransformation(10, 10))
                 .placeholder(getPlaceHolderImg())
                 .into(ivImage);
     }
@@ -105,6 +107,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
         Picasso.with(getContext())
                 .load(movie.getBackdropPath())
+                .transform(new RoundedCornersTransformation(10, 10))
                 .placeholder(getPlaceHolderImg())
                 .into(ivImage);
 
