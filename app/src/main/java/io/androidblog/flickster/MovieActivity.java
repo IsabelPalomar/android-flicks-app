@@ -2,8 +2,9 @@ package io.androidblog.flickster;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -15,14 +16,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-import io.androidblog.flickster.adapters.MovieArrayAdapter;
+import io.androidblog.flickster.adapters.MovieRecyclerViewAdapter;
 import io.androidblog.flickster.models.Movie;
 
 public class MovieActivity extends AppCompatActivity {
 
     ArrayList<Movie> movies;
-    MovieArrayAdapter movieAdapter;
-    ListView lvItems;
+    MovieRecyclerViewAdapter movieAdapter;
+    RecyclerView rvMovies;
 
 
     @Override
@@ -30,10 +31,13 @@ public class MovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
-        lvItems = (ListView) findViewById(R.id.lvMovies);
+        rvMovies = (RecyclerView) findViewById(R.id.rvMovies);
         movies = new ArrayList<>();
-        movieAdapter = new MovieArrayAdapter(this, movies);
-        lvItems.setAdapter(movieAdapter);
+
+        movieAdapter = new MovieRecyclerViewAdapter(this, movies);
+        rvMovies.setAdapter(movieAdapter);
+        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
