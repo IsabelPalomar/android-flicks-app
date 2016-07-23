@@ -1,6 +1,7 @@
 package io.androidblog.flickster.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,18 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         //populate data
         tvTitle.setText(movie.getOriginalTitle());
         tvOverview.setText(movie.getOverview());
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
+
+        Picasso.with(getContext()).load(getImagePath(movie)).into(ivImage);
+
+    }
+
+    private String getImagePath(Movie movie) {
+
+        if(getContext().getResources().getConfiguration().orientation ==  Configuration.ORIENTATION_PORTRAIT){
+            return movie.getPosterPath();
+        }else{
+            return movie.getBackdropPath();
+        }
 
     }
 
