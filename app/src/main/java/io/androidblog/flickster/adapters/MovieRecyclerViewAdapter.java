@@ -53,7 +53,10 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         tvTitle.setText(movie.getOriginalTitle());
         tvOverview.setText(movie.getOverview());
 
-        Picasso.with(getContext()).load(getImagePath(movie)).into(ivImage);
+        Picasso.with(getContext())
+                .load(getImagePath(movie))
+                .placeholder(getPlaceHolderImg())
+                .into(ivImage);
 
     }
 
@@ -72,6 +75,17 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         }
 
     }
+
+    private int getPlaceHolderImg() {
+
+        if(getContext().getResources().getConfiguration().orientation ==  Configuration.ORIENTATION_PORTRAIT){
+            return R.drawable.poster_placeholder;
+        }else{
+            return R.drawable.backdrop_placeholder;
+
+        }
+    }
+
 
     public void clear() {
         mMovies.clear();
