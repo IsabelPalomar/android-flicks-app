@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +57,12 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
     }
 
+
+    @Override
+    public int getItemCount() {
+        return mMovies.size();
+    }
+
     private String getImagePath(Movie movie) {
 
         if(getContext().getResources().getConfiguration().orientation ==  Configuration.ORIENTATION_PORTRAIT){
@@ -68,12 +73,16 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
     }
 
-    @Override
-    public int getItemCount() {
-        return mMovies.size();
+    public void clear() {
+        mMovies.clear();
+        notifyDataSetChanged();
     }
 
-    //ViewHolder pattern
+    public void addAll(List<Movie> list) {
+        mMovies.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView ivImage;
