@@ -1,12 +1,14 @@
 package io.androidblog.flickster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -14,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import io.androidblog.flickster.R;
+import io.androidblog.flickster.activities.DetailActivity;
 import io.androidblog.flickster.models.Movie;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -80,9 +83,10 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private void configureViewNormalHolder(ViewHolder vhNormal, int position) {
 
-        Movie movie = mMovies.get(position);
+        final Movie movie = mMovies.get(position);
 
         // Set item views based on your views and data model
+        RelativeLayout rlMovies = vhNormal.rlMovies;
         ImageView ivImage = vhNormal.ivImage;
         TextView tvTitle = vhNormal.tvTitle;
         TextView tvOverview = vhNormal.tvOverview;
@@ -96,6 +100,16 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
                 .transform(new RoundedCornersTransformation(10, 10))
                 .placeholder(getPlaceHolderImg())
                 .into(ivImage);
+
+        //Set onClick behaviour
+        rlMovies.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), DetailActivity.class);
+                i.putExtra("movieId", movie.getId());
+                getContext().startActivity(i);
+            }
+        });
     }
 
     private void configureViewPopularHolder(ViewHolderPopular vhPopular, int position) {
@@ -152,12 +166,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public RelativeLayout rlMovies;
         public ImageView ivImage;
         public TextView tvTitle;
         public TextView tvOverview;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            rlMovies = (RelativeLayout) itemView.findViewById(R.id.rlMovies);
             ivImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
@@ -167,10 +183,12 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public static class ViewHolderPopular extends RecyclerView.ViewHolder {
 
+        public RelativeLayout rlMovies;
         public ImageView ivImage;
 
         public ViewHolderPopular(View itemView) {
             super(itemView);
+            rlMovies = (RelativeLayout) itemView.findViewById(R.id.rlMovies);
             ivImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
         }
     }

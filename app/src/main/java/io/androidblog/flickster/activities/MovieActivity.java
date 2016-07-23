@@ -1,4 +1,4 @@
-package io.androidblog.flickster;
+package io.androidblog.flickster.activities;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import io.androidblog.flickster.R;
 import io.androidblog.flickster.adapters.MovieRecyclerViewAdapter;
 import io.androidblog.flickster.models.Movie;
 
