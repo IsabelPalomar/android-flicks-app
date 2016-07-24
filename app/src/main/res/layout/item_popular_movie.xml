@@ -10,7 +10,6 @@
     android:layout_gravity="center"
     android:id="@+id/rlMovies">
 
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,5 +18,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:src="@mipmap/ic_launcher"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivMovieImageOverlay"
+        android:src="@drawable/play_icon"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
