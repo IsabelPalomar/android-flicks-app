@@ -13,7 +13,7 @@ public class Movie {
     String backdropPath;
     String originalTitle;
     String overview;
-    double voteAverage;
+    float voteAverage;
 
     public String getId() {
         return id;
@@ -34,7 +34,7 @@ public class Movie {
         return overview;
     }
 
-    public double getVoteAverage() {
+    public float getVoteAverage() {
         return voteAverage;
     }
     public Movie(JSONObject jsonObject) throws JSONException{
@@ -43,7 +43,7 @@ public class Movie {
         this.backdropPath = jsonObject.getString("backdrop_path");
         this.originalTitle = jsonObject.getString("original_title");
         this.overview = jsonObject.getString("overview");
-        this.voteAverage = jsonObject.getDouble("vote_average");
+        this.voteAverage = jsonObject.getLong("vote_average");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array){
