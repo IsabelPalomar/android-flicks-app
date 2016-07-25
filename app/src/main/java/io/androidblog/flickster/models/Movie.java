@@ -14,6 +14,8 @@ public class Movie {
     String originalTitle;
     String overview;
     float voteAverage;
+    String voteCount;
+    float popularity;
 
     public String getId() {
         return id;
@@ -34,6 +36,14 @@ public class Movie {
         return overview;
     }
 
+    public String getVoteCount() {
+        return voteCount;
+    }
+
+    public float getPopularity() {
+        return popularity;
+    }
+
     public float getVoteAverage() {
         return voteAverage;
     }
@@ -44,6 +54,8 @@ public class Movie {
         this.originalTitle = jsonObject.getString("original_title");
         this.overview = jsonObject.getString("overview");
         this.voteAverage = jsonObject.getLong("vote_average");
+        this.voteCount = jsonObject.getString("vote_count");
+        this.popularity = jsonObject.getLong("popularity");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array){

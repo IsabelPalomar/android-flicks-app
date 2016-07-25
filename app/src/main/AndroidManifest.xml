@@ -17,9 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DetailActivity"></activity>
-        <activity android:name=".activities.YouTubePlayerActivity"
-            android:screenOrientation="landscape">></activity>
+        <activity
+            android:name=".activities.DetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".activities.YouTubePlayerActivity"
+            android:screenOrientation="landscape">>
+        </activity>
     </application>
 
 </manifest>
