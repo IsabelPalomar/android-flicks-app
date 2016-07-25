@@ -3,6 +3,7 @@ package io.androidblog.flickster.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +87,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         final Movie movie = mMovies.get(position);
 
         // Set item views based on your views and data model
-        RelativeLayout rlMovies = vhNormal.rlMovies;
+        CardView cvMovies = vhNormal.cvMovies;
         ImageView ivImage = vhNormal.ivImage;
         TextView tvTitle = vhNormal.tvTitle;
         TextView tvOverview = vhNormal.tvOverview;
@@ -97,12 +98,12 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
         Picasso.with(getContext())
                 .load(getImagePath(movie))
-                .transform(new RoundedCornersTransformation(10, 10))
+                .transform(new RoundedCornersTransformation(5, 5))
                 .placeholder(getPlaceHolderImg())
                 .into(ivImage);
 
         //Set onClick behaviour
-        rlMovies.setOnClickListener(new View.OnClickListener(){
+        cvMovies.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), DetailActivity.class);
@@ -166,14 +167,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public RelativeLayout rlMovies;
+        public CardView cvMovies;
         public ImageView ivImage;
         public TextView tvTitle;
         public TextView tvOverview;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            rlMovies = (RelativeLayout) itemView.findViewById(R.id.rlMovies);
+            cvMovies = (CardView) itemView.findViewById(R.id.cvMovies);
             ivImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
