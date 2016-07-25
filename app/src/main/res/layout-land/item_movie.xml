@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
+    android:orientation="vertical"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true">
 
@@ -28,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/ivMovieImage"
             android:layout_toRightOf="@+id/ivMovieImage"
-            android:maxLength="20"
+            android:maxLength="29"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorBlack"
             tools:text="Captain America" />
@@ -42,10 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitle"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/ivMovieImage"
             android:layout_toRightOf="@+id/ivMovieImage"
-            android:maxLength="141"
+            android:maxLength="160"
             tools:text="Captain America" />
 
         <View

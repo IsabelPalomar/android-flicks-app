@@ -4,15 +4,15 @@
     android:id="@+id/srlMovies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.MovieActivity"
-    android:background="@color/colorBackground">
+    tools:context=".activities.MovieActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMovies"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 </android.support.v4.widget.SwipeRefreshLayout>

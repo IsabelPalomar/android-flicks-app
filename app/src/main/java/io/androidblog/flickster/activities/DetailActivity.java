@@ -57,7 +57,6 @@ public class DetailActivity extends AppCompatActivity {
 
                 try {
                     Movie movie = new Movie(response);
-                    Log.d("debyf", movie.getBackdropPath());
 
                     Picasso.with(DetailActivity.this)
                             .load(movie.getBackdropPath())

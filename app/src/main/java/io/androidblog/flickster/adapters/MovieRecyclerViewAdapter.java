@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -91,6 +91,8 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         ImageView ivImage = vhNormal.ivImage;
         TextView tvTitle = vhNormal.tvTitle;
         TextView tvOverview = vhNormal.tvOverview;
+        Button btnMoreInfo =  vhNormal.btnMoreInfo;
+
 
         //populate data
         tvTitle.setText(movie.getOriginalTitle());
@@ -103,7 +105,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
                 .into(ivImage);
 
         //Set onClick behaviour
-        cvMovies.setOnClickListener(new View.OnClickListener(){
+        btnMoreInfo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), DetailActivity.class);
@@ -115,16 +117,27 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private void configureViewPopularHolder(ViewHolderPopular vhPopular, int position) {
 
-        Movie movie = mMovies.get(position);
+        final Movie movie = mMovies.get(position);
 
         // Set item views based on your views and data model
         ImageView ivImage = vhPopular.ivImage;
+        Button btnMoreInfo =  vhPopular.btnMoreInfo;
+
 
         Picasso.with(getContext())
                 .load(movie.getBackdropPath())
-                .transform(new RoundedCornersTransformation(10, 10))
-                .placeholder(getPlaceHolderImg())
+                .transform(new RoundedCornersTransformation(5, 5))
+                .placeholder(R.drawable.backdrop_placeholder)
                 .into(ivImage);
+
+        btnMoreInfo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), DetailActivity.class);
+                i.putExtra("movieId", movie.getId());
+                getContext().startActivity(i);
+            }
+        });
 
     }
 
@@ -171,6 +184,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         public ImageView ivImage;
         public TextView tvTitle;
         public TextView tvOverview;
+        public Button btnMoreInfo;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -178,19 +192,22 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
             ivImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
+            btnMoreInfo = (Button) itemView.findViewById(R.id.btnMoreInfo);
 
         }
     }
 
     public static class ViewHolderPopular extends RecyclerView.ViewHolder {
 
-        public RelativeLayout rlMovies;
+        public CardView cvMovies;
         public ImageView ivImage;
+        public Button btnMoreInfo;
 
         public ViewHolderPopular(View itemView) {
             super(itemView);
-            rlMovies = (RelativeLayout) itemView.findViewById(R.id.rlMovies);
+            cvMovies = (CardView) itemView.findViewById(R.id.cvMovies);
             ivImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
+            btnMoreInfo = (Button) itemView.findViewById(R.id.btnMoreInfo);
         }
     }
 
