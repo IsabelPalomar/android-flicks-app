@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.androidblog.flickster.R;
 import io.androidblog.flickster.activities.DetailActivity;
+import io.androidblog.flickster.activities.YouTubePlayerActivity;
 import io.androidblog.flickster.models.Movie;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -139,6 +140,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
             }
         });
 
+        ivImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), YouTubePlayerActivity.class);
+                i.putExtra("movieId", movie.getId());
+                getContext().startActivity(i);
+            }
+        });
     }
 
 
