@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Flickster</string>
+    <string name="app_name">Now Playing</string>
+    <string name="title_activity_launcher">Flikster</string>
 </resources>
